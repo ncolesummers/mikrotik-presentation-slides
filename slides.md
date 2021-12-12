@@ -1,4 +1,5 @@
 ## Mikrotik Configuration Generator
+A Desktop Application written by N. Cole Summers for First Step Internet
 
 
 
@@ -8,7 +9,6 @@
 
 
 ## The Problem
-
 Each router installed by our technicians was configured by hand.  This led to many routers having unique configurations, and misconfiguration was common.  The misconfigured routers generated support tickets, and the unique configurations increased the complexity of troubleshooting.
 
 
