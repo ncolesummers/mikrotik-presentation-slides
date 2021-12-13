@@ -1,4 +1,4 @@
-## Mikrotik Configuration Generator
+# Mikrotik Configuration Generator
 A Desktop Application written by N. Cole Summers
 for First Step Internet
 
@@ -69,10 +69,10 @@ def input_validation(x) :
 
 ## Journey to 2.0
 Possible Solutions:
-* Flutter Desktop - too new, still in alpha at the time
+* [Flutter Desktop](https://flutter.dev/multi-platform/desktop) - too new, still in alpha at the time
 * Electron - memory footprint was too high for the target laptops
 * Winforms - well-documented and supported native solution 
-* Fyne - The GUI library written in Go with the most stars on Github
+* [Fyne](https://fyne.io) - The GUI library written in Go with the most stars on Github
 
 
 
@@ -147,9 +147,90 @@ Single File Executables, a feature of .NET 5.0, were only supported on Linux and
 
 
 ### Go to the Rescue
-By this time I was most familiar using Go so I started looking to it for my solution.  
-Go 1.16 had just came out which included the new embed package, making it simple to embed any file into your final Go binary.  Between this and the standard library's templating engine, Go was a promising target.  
+Around this time I started looking into Go for a solution.  The embed package had just been released, making it simple to embed any file into your final Go binary.  Between this and the standard library's templating engine, Go was a promising target.  
 
-I wasn't able to use Fyne for a graphics library in the end, because our old laptops did not have a graphics driver with OpenGL support.  That's when I discovered the Wails framework, which finally met all of the project requirements.
+I wasn't able to use Fyne for a graphics library in the end, because our old laptops did not have a graphics driver with OpenGL support.  That's when I discovered the [Wails](https://wails.app) framework, which finally met all of the project requirements.
+
+
 
 ## Mikrotik Configuration Generator 2.0
+<img data-src="assets/MCG-diagram.png" alt="High-level diagram of the Mikrotik Configuration Generator" width="50%">
+
+
+
+#### Current UI (2.5)
+<img data-src="assets/MCG-current.jpg" alt="Screeshot of the Mikrotik Configuration Generator" width="50%">
+
+
+
+#### Example Code (Go)
+```go
+app := wails.CreateApp(&wails.AppConfig{
+		Width:     576,
+		Height:    576,
+		Title:     "Mikrotik Configuration Generator v" + version,
+		JS:        js,
+		CSS:       css,
+		Colour:    "#131313",
+		Resizable: true,
+	})
+
+	app.Bind(builder.BuildFiber)
+	app.Bind(builder.BuildeFiber)
+	app.Bind(builder.BuildRadio)
+	app.Bind(builder.BuildRouter)
+	app.Run()
+```
+
+
+
+#### Consuming a backend function from the frontend (JS)
+```js
+var myRouter = {
+    Username: this.state.username,
+  Password: this.state.password,
+  Installation: this.state.selectedInstall,
+  DisableWiFi: this.state.disableWiFi,
+  SSID: this.state.ssid,
+  WPA2: this.state.wpa2,
+  Bridge: this.state.bridged,
+  LTE: false
+}
+
+window.backend.BuildRouter(myRouter)
+```
+
+
+
+#### Example Component (ReactJS/[MUI](http://mui.com))
+```js
+import React from 'react';
+import IconButton from '@material-ui/core/IconButton';
+import HelpIcon from '@material-ui/icons/Help';
+
+const runtime = require('@wailsapp/runtime');
+
+export default function HelpButton() {
+  return (
+    <div className="help">
+      <IconButton
+      aria-label="Help" color="secondary" 
+      onClick={() => runtime.Browser.OpenURL('http://wiki.fsr.com/index.php?title=Mikrotik_Configuration_App')}>
+        <HelpIcon />
+      </IconButton>
+    </div>
+  );
+}
+```
+
+
+
+### Room for improvement
+Things I'd like to change:
+* Add animations when components pop in or out
+* Swap Material UI components for [Headless UI](https://headlessui.dev) and [TailwindCSS](https://tailwindcss.com)
+* If I started today I'd write the app with .NET6/[MAUI](https://docs.microsoft.com/en-us/dotnet/maui/what-is-maui) or [Tauri](https://tauri.studio/en/)
+
+
+
+# Questions?
