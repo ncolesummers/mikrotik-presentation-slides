@@ -12,6 +12,8 @@ const babel = require('@rollup/plugin-babel').default
 const commonjs = require('@rollup/plugin-commonjs')
 const resolve = require('@rollup/plugin-node-resolve').default
 const sass = require('sass')
+const merge = require('merge-stream');
+
 
 const gulp = require('gulp')
 const tap = require('gulp-tap')
@@ -271,14 +273,24 @@ gulp.task('build', gulp.parallel('js', 'css', 'plugins'))
 
 gulp.task('package', gulp.series('default', () =>
 
-    gulp.src([
-        './index.html',
-        './dist/**',
-        './lib/**',
-        './images/**',
-        './plugin/**',
-        './**.md'
-    ]).pipe(gulp.dest('./export/'))
+    merge(gulp.src('./index.html'),
+        gulp.src('./assets/**', {base:'.'}),
+        gulp.src('./dist/**', {base:'.'}),
+        gulp.src('./plugin/**', {base:'.'}),
+        gulp.src('./**.md')
+        ).pipe(gulp.dest('./export/'))
+
+
+    // gulp.src([
+    //     './index.html',
+    //     './assets/**', {base:'.'},
+    //     './dist/**', {base:'.'},
+    //     './lib/**', {base:'.'},
+    //     './images/**', {base:'.'},
+    //     './plugin/**', {base:'.'},
+    //     './**.md',
+        
+    // ]).pipe(gulp.dest('./export/'))
 
 ))
 
