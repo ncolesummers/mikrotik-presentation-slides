@@ -1,5 +1,6 @@
 ## Mikrotik Configuration Generator
-A Desktop Application written by N. Cole Summers for First Step Internet
+A Desktop Application written by N. Cole Summers
+for First Step Internet
 
 
 
@@ -16,7 +17,7 @@ Each router installed by our technicians was configured by hand.  This led to ma
 
 #### Additional Requirements
 * The application needed to work offline
-* Single Executable 
+* Self-contained Executable 
 
 
 
@@ -75,10 +76,80 @@ Possible Solutions:
 
 
 
-#### Winforms and C#
+### Winforms and C#
 * Winforms made building a GUI simple
 * I used the DotLiquid library for templating
+
+```bash
+├── FrmMik.Designer.cs
+├── FrmMik.cs
+├── FrmMik.resx
+├── Mikrotik-Configurator-DotNet5.csproj
+├── Mikrotik-Configurator-DotNet5.sln
+├── Program.cs
+├── Properties
+│   ├── Resources.Designer.cs
+│   └── Resources.resx
+├── Readme.md
+├── azure-pipelines.yml
+├── fsr-favicon.ico
+└── templates
+    ├── _dhcpClient.liquid
+    ├── _dhcpServer.liquid
+    ├── _footer.liquid
+    ├── _wirelessClient.liquid
+    ├── eFiber.liquid
+    ├── fiber.liquid
+    ├── radio.liquid
+    └── standard-wireless.liquid
+
+2 directories, 19 files
+```
 
 
 
 #### GUI
+<img data-src="assets/MCG-proto-winforms.jpg" alt="Mikrotik Router ac^2" width="66%">
+
+
+
+#### Example Function
+```cs
+private bool ValidIPAddress(string ipAddress, out string errorMessage)
+        {
+            Regex ip = new Regex(@"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b");
+            MatchCollection result = ip.Matches(txtManIP.Text);
+
+            // Confirm that the IP address string is not empty
+            if (ipAddress.Length == 0)
+            {
+                errorMessage = "Management IP is empty.  Enter a management IP or uncheck the Management IP Address Checkbox.";
+                return false;
+            } 
+            else if (result.Count > 0)
+            {
+                errorMessage = "";
+                return true;
+            }
+            else
+            {
+                errorMessage = "Please enter a valid IP Address.";
+                return false;
+            }
+        }
+```
+
+
+
+#### Why not C#?
+Single File Executables, a feature of .NET 5.0, were only supported on Linux and MacOS.  It was originally supposed to be in .NET 5.0, but was pushed back to .NET 6.0.  I couldn't wait for the release of .NET 6.0, so this prototype was scrapped.
+
+
+
+### Go to the Rescue
+By this time I was most familiar using Go so I started looking to it for my solution.  
+Go 1.16 had just came out which included the new embed package, making it simple to embed any file into your final Go binary.  Between this and the standard library's templating engine, Go was a promising target.  
+
+I wasn't able to use Fyne for a graphics library in the end, because our old laptops did not have a graphics driver with OpenGL support.  That's when I discovered the Wails framework, which finally met all of the project requirements.
+
+## Mikrotik Configuration Generator 2.0
