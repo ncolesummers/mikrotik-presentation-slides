@@ -4,14 +4,13 @@ for First Step Internet
 
 
 
+## The Problem
+There was no standardized procedure for installing home routers on the network.  Without standards, each router was unique.  Unique configurations for every home increased the complexity of troubleshooting.
+
+
+
 ## What is a Mikrotik?
 <img data-src="assets/mikrotikac2.jpg" alt="Mikrotik Router ac^2" width="66%">
-
-
-
-## The Problem
-Each router installed by our technicians was configured by hand.  This led to many routers having unique configurations, and misconfiguration was common.  The misconfigured routers generated support tickets, and the unique configurations increased the complexity of troubleshooting.
-
 
 
 
@@ -146,10 +145,10 @@ Single File Executables, a feature of .NET 5.0, were only supported on Linux and
 
 
 
-### Go to the Rescue
-Around this time I started looking into Go for a solution.  The embed package had just been released, making it simple to embed any file into your final Go binary.  Between this and the standard library's templating engine, Go was a promising target.  
-
-I wasn't able to use Fyne for a graphics library in the end, because our old laptops did not have a graphics driver with OpenGL support.  That's when I discovered the [Wails](https://wails.app) framework, which finally met all of the project requirements.
+### Why Go?
+* Embed makes it trivial to include an entire filesytem in your binary
+* The templating engine included in the standard library let me reuse my Dot.Liquid templates with only minor changes  
+* ~Fyne~ [Wails](https://wails.app) finally met all of my project requirements
 
 
 
@@ -226,7 +225,6 @@ export default function HelpButton() {
 
 
 ### Room for improvement
-Things I'd like to change:
 * Add animations when components pop in or out
 * Swap Material UI components for [Headless UI](https://headlessui.dev) and [TailwindCSS](https://tailwindcss.com)
 * If I started today I'd write the app with .NET6/[MAUI](https://docs.microsoft.com/en-us/dotnet/maui/what-is-maui) or [Tauri](https://tauri.studio/en/)
@@ -234,3 +232,5 @@ Things I'd like to change:
 
 
 # Questions?
+* [Presenation](https://www.presentation.ncolesummers.com)
+* [Source Code] (https://github.com/ncolesummers/mikrotik-presentation-slides)
