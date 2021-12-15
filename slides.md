@@ -214,7 +214,7 @@ export default function HelpButton() {
     <div className="help">
       <IconButton
       aria-label="Help" color="secondary" 
-      onClick={() => runtime.Browser.OpenURL('http://wiki.fsr.com/index.php?title=Mikrotik_Configuration_App')}>
+      onClick={() => runtime.Browser.OpenURL(myHelpURL)}>
         <HelpIcon />
       </IconButton>
     </div>
