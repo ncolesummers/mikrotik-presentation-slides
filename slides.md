@@ -141,7 +141,7 @@ private bool ValidIPAddress(string ipAddress, out string errorMessage)
 
 
 #### Why not C#?
-Single File Executables, a feature of .NET 5.0, were only supported on Linux and MacOS.  It was originally supposed to be in .NET 5.0, but was pushed back to .NET 6.0.  I couldn't wait for the release of .NET 6.0, so this prototype was scrapped.
+Single File Executables were supposed to be a feature of .NET 5.0 for linux, macOS, and Windows.  Windows support was pushed back to .NET 6.0.  I couldn't wait for .NET 6.0, so I had to scrap this prototype.
 
 
 
