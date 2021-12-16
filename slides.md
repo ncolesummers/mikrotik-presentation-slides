@@ -233,4 +233,4 @@ export default function HelpButton() {
 
 # Questions?
 * [Presenation](https://www.presentation.ncolesummers.com)
-* [Source Code] (https://github.com/ncolesummers/mikrotik-presentation-slides)
+* [Source Code](https://github.com/ncolesummers/mikrotik-presentation-slides)
